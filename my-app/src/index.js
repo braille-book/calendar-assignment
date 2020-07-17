@@ -3,12 +3,8 @@ import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import './style.css';
 import "react-datepicker/dist/react-datepicker.css";
-import { Container, Header, Form, Grid, Dropdown, Input } from 'semantic-ui-react';
+import { Container, Header, Form, Grid, Input } from 'semantic-ui-react';
 
-const ampm = [
-  {key:'AM', text:'AM', value:'AM'},
-  {key:'PM', text:'PM', value:'PM'},
-]
 
 class Calendar extends React.Component {
   downloadIcsFile = () => {
