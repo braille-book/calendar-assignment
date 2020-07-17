@@ -22,6 +22,13 @@ class Calendar extends React.Component {
   downloadIcsFile = () => {
     const element = document.createElement("a");
 
+    if (document.getElementById('beginDate').value === document.getElementById('endDate').value){
+      if (document.getElementById('endTime').value < document.getElementById('beginTime').value){
+        alert("Invalid Time Range");
+        return;
+      }
+    }
+
     let text =  'BEGIN:VCALENDAR\n' +
         'CALSCALE:GREGORIAN\n' +
         'BEGIN:VEVENT\n' +
@@ -31,7 +38,6 @@ class Calendar extends React.Component {
                     document.getElementById('endTime').value.replace(/:/g, '') + '00\n' +
         'DTSTAMP:20200630T051242Z\n' +
         'UID:'+ (Math.floor(100000 + Math.random() * 900000)) + '0-E749-430B-8CAF-0E4F40551615\n' +
-        'CREATED:1212312T213424234\n' +
         'LAST-MODIFIED:20200630T051241Z\n' +
         'LOCATION:' + document.getElementById('loc').value + '\n' +
         'SUMMARY:' + document.getElementById('summ').value + '\n' +
