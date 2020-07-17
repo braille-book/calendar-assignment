@@ -7,6 +7,18 @@ import { Container, Header, Form, Grid, Input } from 'semantic-ui-react';
 
 
 class Calendar extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
   downloadIcsFile = () => {
     const element = document.createElement("a");
 
@@ -46,7 +58,7 @@ class Calendar extends React.Component {
     <Form class="ui form">
         <div class="field">
         <label>Please Enter Start Date For Event</label>
-          <Input id='beginDate' type='date' onkeydown="return false" placeholder="e.g     MM/DD/YYYY" />
+          <Input id='beginDate' type='date' onChange={this.handleChange} onkeydown="return false" placeholder="e.g     MM/DD/YYYY" />
     </div>
     </Form>
     <Form class="ui form">
@@ -58,7 +70,7 @@ class Calendar extends React.Component {
          <Form class="ui form">
            <div class="field">
              <label>Please Enter End Date For Event</label>
-             <input id='endDate' type='date' onkeydown="return false" placeholder="e.g     MM/DD/YYYY" />
+             <input id='endDate' type='date' min={this.state.value} onkeydown="return false" placeholder="e.g     MM/DD/YYYY" />
            </div>
          </Form>
     <Form class="ui form">
