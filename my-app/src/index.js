@@ -50,7 +50,7 @@ class Calendar extends React.Component {
     <Form class="ui form">
         <div class="field">
         <label>Please Enter Start Date For Event</label>
-          <Input id='beginDate' type='date' placeholder="e.g     MM/DD/YYYY" />
+          <Input id='beginDate' type='date' onkeydown="return false" placeholder="e.g     MM/DD/YYYY" />
     </div>
     </Form>
     <Form class="ui form">
@@ -62,7 +62,7 @@ class Calendar extends React.Component {
          <Form class="ui form">
            <div class="field">
              <label>Please Enter End Date For Event</label>
-             <input id='endDate' type='date'  placeholder="e.g     MM/DD/YYYY" />
+             <input id='endDate' type='date' onkeydown="return false" placeholder="e.g     MM/DD/YYYY" />
            </div>
          </Form>
     <Form class="ui form">
