@@ -35,8 +35,8 @@ class Calendar extends React.Component {
         'LAST-MODIFIED:20200630T051241Z\n' +
         'LOCATION:' + document.getElementById('loc').value + '\n' +
         'SUMMARY:' + document.getElementById('summ').value + '\n' +
-        'END:EVENT\n' +
-        'END:CALENDAR\n'
+        'END:VEVENT\n' +
+        'END:VCALENDAR\n'
 
 
     const file = new Blob([text], {type: 'text/plain'});
