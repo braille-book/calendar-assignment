@@ -30,6 +30,7 @@ class Calendar extends React.Component {
     }
 
     let text =  'BEGIN:VCALENDAR\n' +
+        'PRODID:-//Team Braille Book//Calendar Assignment//EN' +
         'CALSCALE:GREGORIAN\n' +
         'VERSION:2.0\n' +
         'BEGIN:VEVENT\n' +
