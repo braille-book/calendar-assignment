@@ -31,6 +31,7 @@ class Calendar extends React.Component {
 
     let text =  'BEGIN:VCALENDAR\n' +
         'CALSCALE:GREGORIAN\n' +
+        'VERSION:2.0\n' +
         'BEGIN:VEVENT\n' +
         'DTSTART:' + document.getElementById('beginDate').value.replace(/-/g, '') + 'T' +
                     document.getElementById('beginTime').value.replace(/:/g, '') + '00\n' +
