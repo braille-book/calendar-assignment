@@ -5,15 +5,51 @@ import './style.css';
 import "react-datepicker/dist/react-datepicker.css";
 import { Container, Header, Form, Grid, Input } from 'semantic-ui-react';
 
+ window.$geolat = "long";
+ window.$geolong = "lat";
+ window.$attend = "yn";
+ window.$classi = "ppc"
+ 
 
 class Calendar extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {value: ''};
-
     this.handleChange = this.handleChange.bind(this);
   }
+
+  radiosetter(event){
+    //window.$attend = event.target.value;
+    //window.$classi = event.target.value;
+    console.log(event.target.value)
+    switch (event.target.value) {
+      case "Yes":
+        window.$attend = event.target.value
+        break;
+      case "No":
+        window.$attend = event.target.value
+        break;
+      case "Public":
+        window.$classi = event.target.value
+        break;
+      case "Private":
+        window.$classi = event.target.value
+        break;
+      case "Confidential":
+        window.$classi = event.target.value
+        break;
+
+    }
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        window.$geolat = position.coords.latitude;
+        window.$geolong = position.coords.longitude;
+    });
+  }
+
 
   handleChange(event) {
     this.setState({value: event.target.value});
@@ -30,7 +66,7 @@ class Calendar extends React.Component {
     }
 
     let text =  'BEGIN:VCALENDAR\n' +
-        'PRODID:-//Team Braille Book//Calendar Assignment//EN' +
+        'PRODID:-//Team Braille Book//Calendar Assignment//EN' + '\n' +
         'CALSCALE:GREGORIAN\n' +
         'VERSION:2.0\n' +
         'BEGIN:VEVENT\n' +
@@ -41,7 +77,10 @@ class Calendar extends React.Component {
         'DTSTAMP:20200630T051242Z\n' +
         'UID:'+ (Math.floor(100000 + Math.random() * 900000)) + '0-E749-430B-8CAF-0E4F40551615\n' +
         'LAST-MODIFIED:20200630T051241Z\n' +
+        'GEO: ' + window.$geolat + ';' + window.$geolong + '\n' +
         'LOCATION:' + document.getElementById('loc').value + '\n' +
+        'CLASS:' + window.$classi + '\n' +
+        'RSVP:' + window.$attend + '\n' +
         'SUMMARY:' + document.getElementById('summ').value + '\n' +
         'END:VEVENT\n' +
         'END:VCALENDAR\n'
@@ -110,14 +149,14 @@ class Calendar extends React.Component {
            <div className="groupedfields">
              <label>Would you like to RSVP?</label>
              <div className="field">
-               <div className="ui radio checkbox">
-                 <input type="radio" name="example2" checked="checked"/>
+               <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
+                 <input type="radio" value = "Yes" name="example2"/>
                    <label>Yes</label>
                </div>
              </div>
              <div className="field">
-               <div className="ui radio checkbox">
-                 <input type="radio" name="example2"/>
+               <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
+                 <input type="radio" value = "No" name="example2"/>
                    <label>No</label>
                </div>
              </div>
@@ -129,20 +168,20 @@ class Calendar extends React.Component {
            <div className="groupedfields">
              <label>Would you like to make this Event Public, Private, or Confidential?</label>
              <div className="field">
-               <div className="ui radio checkbox">
-                 <input type="radio" name="example3" checked="checked"/>
+               <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
+                 <input type="radio" value = "Public" name="example3"/>
                  <label>Public</label>
                </div>
              </div>
              <div className="field">
-               <div className="ui radio checkbox">
-                 <input type="radio" name="example3"/>
+               <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
+                 <input type="radio" value = "Private" name="example3"/>
                  <label>Private</label>
                </div>
              </div>
              <div className="field">
-               <div className="ui radio checkbox">
-                 <input type="radio" name="example3" checked="checked"/>
+               <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
+                 <input type="radio" value = "Confidential" name="example3"/>
                  <label>Confidential</label>
                </div>
              </div>
