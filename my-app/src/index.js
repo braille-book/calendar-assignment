@@ -8,7 +8,8 @@ import { Container, Header, Form, Grid, Input } from 'semantic-ui-react';
  window.$geolat = "long";
  window.$geolong = "lat";
  window.$attend = "yn";
- window.$classi = "ppc"
+ window.$classi = "ppc";
+ window.$prio = "star";
  
 
 class Calendar extends React.Component {
@@ -39,7 +40,15 @@ class Calendar extends React.Component {
       case "Confidential":
         window.$classi = event.target.value
         break;
-
+      case  "3":
+        window.$prio = event.target.value
+        break;
+      case  "2":
+        window.$prio = event.target.value
+        break;
+      case  "1":
+        window.$prio = event.target.value
+        break;
     }
   }
 
@@ -80,6 +89,7 @@ class Calendar extends React.Component {
         'GEO: ' + window.$geolat + ';' + window.$geolong + '\n' +
         'LOCATION:' + document.getElementById('loc').value + '\n' +
         'CLASS:' + window.$classi + '\n' +
+        'PRIORITY:' + window.$prio + '\n' +
         'RSVP:' + window.$attend + '\n' +
         'SUMMARY:' + document.getElementById('summ').value + '\n' +
         'END:VEVENT\n' +
@@ -144,6 +154,31 @@ class Calendar extends React.Component {
     <input placeholder="Please Enter the Guest Email" />
     </div>
     </Form>
+      <Form>
+        <div className="ui form">
+          <div className="groupedfields">
+            <label>Priority of Event</label>
+            <div className="field">
+              <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
+                <input type="radio" value = "3" name="example2"/>
+                <label>Low</label>
+              </div>
+            </div>
+            <div className="field">
+              <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
+                <input type="radio" value = "2" name="example2"/>
+                <label>Medium</label>
+              </div>
+            </div>
+                <div className="field">
+                  <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
+                    <input type="radio" value = "1" name="example2"/>
+                    <label>High</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </Form>
        <Form>
          <div className="ui form">
            <div className="groupedfields">
