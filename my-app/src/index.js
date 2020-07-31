@@ -25,10 +25,10 @@ class Calendar extends React.Component {
     //window.$classi = event.target.value;
     console.log(event.target.value)
     switch (event.target.value) {
-      case "Yes":
+      case "TRUE":
         window.$attend = event.target.value
         break;
-      case "No":
+      case "FALSE":
         window.$attend = event.target.value
         break;
       case "Public":
@@ -90,7 +90,7 @@ class Calendar extends React.Component {
         'LOCATION:' + document.getElementById('loc').value + '\n' +
         'CLASS:' + window.$classi + '\n' +
         'PRIORITY:' + window.$prio + '\n' +
-        'RSVP:' + window.$attend + '\n' +
+        'ATTENDEE:' + window.$attend + '\n' +
         'SUMMARY:' + document.getElementById('summ').value + '\n' +
         'END:VEVENT\n' +
         'END:VCALENDAR\n'
@@ -185,13 +185,13 @@ class Calendar extends React.Component {
              <label>Would you like to RSVP?</label>
              <div className="field">
                <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
-                 <input type="radio" value = "Yes" name="example2"/>
+                 <input type="radio" value = "FALSE" name="example2"/>
                    <label>Yes</label>
                </div>
              </div>
              <div className="field">
                <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
-                 <input type="radio" value = "No" name="example2"/>
+                 <input type="radio" value = "TRUE" name="example2"/>
                    <label>No</label>
                </div>
              </div>
