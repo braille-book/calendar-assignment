@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import './style.css';
 import "react-datepicker/dist/react-datepicker.css";
-import { Container, Header, Form, Grid, Input } from 'semantic-ui-react';
+import { Container, Header, Form, Grid, Input,} from 'semantic-ui-react';
 
  window.$geolat = "long";
  window.$geolong = "lat";
@@ -66,7 +66,7 @@ class Calendar extends React.Component {
 
   downloadIcsFile = () => {
     const element = document.createElement("a");
-
+    let tz = new Intl.DateTimeFormat().resolvedOptions().timeZone
     if (document.getElementById('beginDate').value === document.getElementById('endDate').value){
       if (document.getElementById('endTime').value < document.getElementById('beginTime').value){
         alert("Invalid Time Range");
@@ -74,26 +74,29 @@ class Calendar extends React.Component {
       }
     }
 
-    let text =  'BEGIN:VCALENDAR\n' +
-        'PRODID:-//Team Braille Book//Calendar Assignment//EN' + '\n' +
-        'CALSCALE:GREGORIAN\n' +
-        'VERSION:2.0\n' +
-        'BEGIN:VEVENT\n' +
+    let text =  'BEGIN:VCALENDAR\r\n' +
+        'VERSION:2.0\r\n' +
+        'PRODID:-//Team Braille Book//Calendar Assignment//EN\r\n' +
+        'CALSCALE:GREGORIAN\r\n' +
+        'BEGIN:VEVENT\r\n' +
         'DTSTART:' + document.getElementById('beginDate').value.replace(/-/g, '') + 'T' +
-                    document.getElementById('beginTime').value.replace(/:/g, '') + '00\n' +
+                    document.getElementById('beginTime').value.replace(/:/g, '') + '00\r\n' +
         'DTEND:' + document.getElementById('endDate').value.replace(/-/g, '') + 'T' +
-                    document.getElementById('endTime').value.replace(/:/g, '') + '00\n' +
-        'DTSTAMP:20200630T051242Z\n' +
-        'UID:'+ (Math.floor(100000 + Math.random() * 900000)) + '0-E749-430B-8CAF-0E4F40551615\n' +
-        'LAST-MODIFIED:20200630T051241Z\n' +
-        'GEO:' + window.$geolat + ';' + window.$geolong + '\n' +
-        'LOCATION:' + document.getElementById('loc').value + '\n' +
-        'CLASS:' + window.$classi + '\n' +
-        'PRIORITY:' + window.$prio + '\n' +
-        'ATTENDEE:' + window.$attend + '\n' +
-        'SUMMARY:' + document.getElementById('summ').value + '\n' +
-        'END:VEVENT\n' +
-        'END:VCALENDAR\n'
+                    document.getElementById('endTime').value.replace(/:/g, '') + '00\r\n' +
+        'TZID:' + tz + '\r\n' +
+        'DTSTAMP:20200630T051242Z\r\n' +
+        'UID:'+ (Math.floor(100000 + Math.random() * 900000)) + '0-E749-430B-8CAF-0E4F40551615\r\n' +
+        'LAST-MODIFIED:20200630T051241Z\r\n' +
+        'GEO:' + window.$geolat + ';' + window.$geolong + '\r\n' +
+        'LOCATION:' + document.getElementById('loc').value + '\r\n' +
+        'RESOURCES:' + document.getElementById('items').value + '\r\n' +
+        'CLASS:' + window.$classi + '\r\n' +
+        'PRIORITY:' + window.$prio + '\r\n' +
+        'ATTENDEE:' + window.$attend + '\r\n' +
+        'SUMMARY:' + document.getElementById('summ').value + '\r\n' +
+        'ORGANIZER;SENT-BY="' + document.getElementById('email').value + '":mailto:' + document.getElementById( 'guest').value + '\r\n' +
+        'END:VEVENT\r\n' +
+        'END:VCALENDAR\r\n'
 
 
     const file = new Blob([text], {type: 'text/plain'});
@@ -148,10 +151,16 @@ class Calendar extends React.Component {
     <input id={'loc'} placeholder="Please Enter the Location For the Event" />
     </div>
     </Form>
+      <Form class="ui form">
+      <div class="field">
+      <label>Please list the items you're going to bring</label>
+      <input id='items' placeholder="e.g shoes,basketball,phone,etc"/>
+      </div>
+    </Form>
     <Form class="ui form">
         <div class="field">
         <label>Invite any Guest to The Event</label>
-    <input placeholder="Please Enter the Guest Email" />
+    <input id='guest' placeholder="Please Enter the Guest Email" />
     </div>
     </Form>
       <Form>
@@ -225,8 +234,8 @@ class Calendar extends React.Component {
          </Form>
     <Form class="ui success form">
         <div class="field">
-        <label>Email</label>
-        <div class="ui input"><input type="text" placeholder="e.g joe@schmoe.com" /></div>
+        <label>Please enter your Email</label>
+        <div class="ui input"><input id='email' placeholder="e.g joe@schmoe.com" /></div>
         </div>
     </Form>
       <div id='submit' class='buttons'>
