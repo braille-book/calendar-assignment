@@ -86,7 +86,7 @@ class Calendar extends React.Component {
         'DTSTAMP:20200630T051242Z\n' +
         'UID:'+ (Math.floor(100000 + Math.random() * 900000)) + '0-E749-430B-8CAF-0E4F40551615\n' +
         'LAST-MODIFIED:20200630T051241Z\n' +
-        'GEO: ' + window.$geolat + ';' + window.$geolong + '\n' +
+        'GEO:' + window.$geolat + ';' + window.$geolong + '\n' +
         'LOCATION:' + document.getElementById('loc').value + '\n' +
         'CLASS:' + window.$classi + '\n' +
         'PRIORITY:' + window.$prio + '\n' +
