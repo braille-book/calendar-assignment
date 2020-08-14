@@ -116,7 +116,7 @@ class Calendar extends React.Component {
     }
 
     if (window.$reoccur === true){
-        if (document.getElementById('againm').value > 0) {
+        if (document.getElementById('againm').value) {
           recur = "RRULE:FREQ=MONTHLY;BYMONTHDAY=" + document.getElementById('again').value + ";BYMONTH=" + document.getElementById('againm').value.replace(/\s/g,'') + '\r\n';
 
         } else if (document.getElementById('again').value != null) {
@@ -149,7 +149,7 @@ class Calendar extends React.Component {
         'END:VEVENT\r\n' +
         'END:VCALENDAR\r\n'
 
-// Creation of the ICS file and download response - Michael Johnson 
+// Creation of the ICS file and download response - Michael Johnson
     const file = new Blob([text], {type: 'text/plain'});
     element.href = URL.createObjectURL(file);
     element.download = "myEvent.ics";
