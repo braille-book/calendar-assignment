@@ -5,6 +5,7 @@ import './style.css';
 import "react-datepicker/dist/react-datepicker.css";
 import { Container, Header, Form, Grid, Input,} from 'semantic-ui-react';
 
+// Global Variables
  window.$geolat = "long";
  window.$geolong = "lat";
  window.$attend = "yn";
@@ -22,10 +23,8 @@ class Calendar extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-
+// Radio function to record radio values selected on the Form with switch cases - Michael Johnson
   radiosetter(event){
-    //window.$attend = event.target.value;
-    //window.$classi = event.target.value;
     console.log(event.target.value)
     switch (event.target.value) {
       case "TRUE":
@@ -60,7 +59,7 @@ class Calendar extends React.Component {
         break;
     }
   }
-
+ // Function to find Geo Location - Micahel Johnson
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(function(position) {
         window.$geolat = position.coords.latitude;
@@ -72,7 +71,7 @@ class Calendar extends React.Component {
   handleChange(event) {
     this.setState({value: event.target.value});
   }
-
+// Function to put together the ICS File with exceptions - Michael Johnson
   downloadIcsFile = () => {
     const element = document.createElement("a");
     let tz = new Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -124,7 +123,7 @@ class Calendar extends React.Component {
         recur = "RRULE:FREQ=MONTHLY;BYMONTHDAY=" + document.getElementById('again').value + '\r\n';
       }
     }
-
+// The template and creation of the ICS file - Michael Johnson/Eric Rivera
     let text =  'BEGIN:VCALENDAR\r\n' +
         'VERSION:2.0\r\n' +
         'PRODID:-//Team Braille Book//Calendar Assignment//EN\r\n' +
@@ -150,7 +149,7 @@ class Calendar extends React.Component {
         'END:VEVENT\r\n' +
         'END:VCALENDAR\r\n'
 
-
+// Creation of the ICS file and download response - Michael Johnson 
     const file = new Blob([text], {type: 'text/plain'});
     element.href = URL.createObjectURL(file);
     element.download = "myEvent.ics";
@@ -159,7 +158,7 @@ class Calendar extends React.Component {
   }
 
 
-
+// Rendering of the Form itself - Michael Johnson
   render() {
     return (
         <Container textAlign="left">
