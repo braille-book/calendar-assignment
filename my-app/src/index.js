@@ -77,6 +77,38 @@ class Calendar extends React.Component {
     const element = document.createElement("a");
     let tz = new Intl.DateTimeFormat().resolvedOptions().timeZone
     let recur = "";
+    if (document.getElementById('loc').value <= 0){
+      alert("Need a Location")
+      return;
+    }
+    if (document.getElementById('summ').value <= 0){
+      alert("Need Description of the Event")
+      return;
+    }
+    if (document.getElementById('guest').value <= 0){
+      alert("Need a Guest Email")
+      return;
+    }
+    if (document.getElementById('email').value <= 0){
+      alert("Need your Email")
+      return;
+    }
+    if (window.$prio === 'star'){
+      alert("Need to establish Priority")
+      return;
+    }
+    if (window.$classi === 'ppc'){
+      alert("Need to establish Classification")
+      return;
+    }
+    if (window.$attend === 'yn'){
+      alert("Need to establish RSVP")
+      return;
+    }
+    if (window.$reoccur === 'reocu'){
+      alert("Need to establish if the Event is reoccurring")
+      return;
+    }
     if (document.getElementById('beginDate').value === document.getElementById('endDate').value){
       if (document.getElementById('endTime').value < document.getElementById('beginTime').value){
         alert("Invalid Time Range");
