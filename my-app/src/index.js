@@ -10,6 +10,8 @@ import { Container, Header, Form, Grid, Input,} from 'semantic-ui-react';
  window.$attend = "yn";
  window.$classi = "ppc";
  window.$prio = "star";
+ window.$reoccur = "reocu";
+ window.$freq = "freq";
  
 
 class Calendar extends React.Component {
@@ -19,6 +21,7 @@ class Calendar extends React.Component {
     this.state = {value: ''};
     this.handleChange = this.handleChange.bind(this);
   }
+
 
   radiosetter(event){
     //window.$attend = event.target.value;
@@ -49,6 +52,12 @@ class Calendar extends React.Component {
       case  "1":
         window.$prio = event.target.value
         break;
+      case "reTRUE":
+        window.$reoccur = true
+        break;
+      case "reFALSE":
+        window.$reoccur = false
+        break;
     }
   }
 
@@ -67,10 +76,20 @@ class Calendar extends React.Component {
   downloadIcsFile = () => {
     const element = document.createElement("a");
     let tz = new Intl.DateTimeFormat().resolvedOptions().timeZone
+    let recur = "";
     if (document.getElementById('beginDate').value === document.getElementById('endDate').value){
       if (document.getElementById('endTime').value < document.getElementById('beginTime').value){
         alert("Invalid Time Range");
         return;
+      }
+    }
+
+    if (window.$reoccur === true){
+        if (document.getElementById('againm').value > 0) {
+          recur = "RRULE:FREQ=MONTHLY;BYMONTHDAY=" + document.getElementById('again').value + ";BYMONTH=" + document.getElementById('againm').value.replace(/\s/g,'') + '\r\n';
+
+        } else if (document.getElementById('again').value != null) {
+        recur = "RRULE:FREQ=MONTHLY;BYMONTHDAY=" + document.getElementById('again').value + '\r\n';
       }
     }
 
@@ -83,6 +102,7 @@ class Calendar extends React.Component {
                     document.getElementById('beginTime').value.replace(/:/g, '') + '00\r\n' +
         'DTEND:' + document.getElementById('endDate').value.replace(/-/g, '') + 'T' +
                     document.getElementById('endTime').value.replace(/:/g, '') + '00\r\n' +
+         recur +
         'TZID:' + tz + '\r\n' +
         'DTSTAMP:20200630T051242Z\r\n' +
         'UID:'+ (Math.floor(100000 + Math.random() * 900000)) + '0-E749-430B-8CAF-0E4F40551615\r\n' +
@@ -238,6 +258,37 @@ class Calendar extends React.Component {
         <div class="ui input"><input id='email' placeholder="e.g joe@schmoe.com" /></div>
         </div>
     </Form>
+         <Form>
+           <div className="ui form">
+             <div className="groupedfields">
+               <label>Would you like this Event to be reoccurring? </label>
+               <div className="field">
+                 <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
+                   <input type="radio" value = "reTRUE" name="example2"/>
+                   <label>Yes</label>
+                 </div>
+               </div>
+               <div className="field">
+                 <div className="ui radio checkbox" onChange={this.radiosetter.bind(this)}>
+                   <input type="radio" value = "reFALSE" name="example2"/>
+                   <label>No</label>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </Form>
+         <Form class="ui form">
+           <div class="field">
+             <label>Please Enter a Day For the Event to ReOccur</label>
+             <input id='again' placeholder="Please Enter a number between 1-31" />
+           </div>
+         </Form>
+         <Form class="ui form">
+           <div class="field">
+             <label>Which Months You would like this event to occur on "Leave blank if you want every month"</label>
+             <input id='againm' placeholder="Please Enter Months Numbers Seperated by commas" />
+           </div>
+         </Form>
       <div id='submit' class='buttons'>
     <button class="ui button" onClick={this.downloadIcsFile}>Submit</button>
       </div>
