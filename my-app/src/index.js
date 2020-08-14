@@ -67,7 +67,7 @@ class Calendar extends React.Component {
     });
   }
 
-
+ // Function to change the state - ER
   handleChange(event) {
     this.setState({value: event.target.value});
   }
@@ -76,6 +76,7 @@ class Calendar extends React.Component {
     const element = document.createElement("a");
     let tz = new Intl.DateTimeFormat().resolvedOptions().timeZone
     let recur = "";
+   // Check the validation condition and provide feedback - ER
     if (document.getElementById('loc').value <= 0){
       alert("Need a Location")
       return;
@@ -115,6 +116,7 @@ class Calendar extends React.Component {
       }
     }
 
+   // Take care of frequency - ER
     if (window.$reoccur === true){
         if (document.getElementById('againm').value) {
           recur = "RRULE:FREQ=MONTHLY;BYMONTHDAY=" + document.getElementById('again').value + ";BYMONTH=" + document.getElementById('againm').value.replace(/\s/g,'') + '\r\n';
@@ -129,6 +131,7 @@ class Calendar extends React.Component {
         'PRODID:-//Team Braille Book//Calendar Assignment//EN\r\n' +
         'CALSCALE:GREGORIAN\r\n' +
         'BEGIN:VEVENT\r\n' +
+        // Normalize the times - ER
         'DTSTART:' + document.getElementById('beginDate').value.replace(/-/g, '') + 'T' +
                     document.getElementById('beginTime').value.replace(/:/g, '') + '00\r\n' +
         'DTEND:' + document.getElementById('endDate').value.replace(/-/g, '') + 'T' +
@@ -136,6 +139,7 @@ class Calendar extends React.Component {
          recur +
         'TZID:' + tz + '\r\n' +
         'DTSTAMP:20200630T051242Z\r\n' +
+        // Generate pseudo UID - ER
         'UID:'+ (Math.floor(100000 + Math.random() * 900000)) + '0-E749-430B-8CAF-0E4F40551615\r\n' +
         'LAST-MODIFIED:20200630T051241Z\r\n' +
         'GEO:' + window.$geolat + ';' + window.$geolong + '\r\n' +
